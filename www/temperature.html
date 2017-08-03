@@ -138,20 +138,25 @@
         setInterval(getData, 13000);
 
 
+	function drawGauges(response){
+          var table = response.getDataTable();
+	  var lastTime = table.getValue(0,0);	
+	  var lastTemp = table.getValue(0,1);
+	  var lastVolt = table.getValue(0,2);
+	  $("time_div").text("Oppdatert: " + lastTime);
+	  dataVolt.setValue(0,1,Number(lastVolt).toFixed(2));
+	  data.setValue(0,1,Number(lastTemp).toFixed(2)); 
+	  chartv.draw(dataVolt,optionsVolt);
+	  chart.draw(data,options);
+	}
+
       function getData(){
 
-        $.getJSON("data.json",function(response){
-          //The response text is available in the 'response' variable
-          //Set the value of the textarea with the id 'csvResponse' to the response
-          console.log(response);
-          dataVolt.setValue(0, 1, Number(response.volt).toFixed(2));
-          chartv.draw(dataVolt, optionsVolt);
-          data.setValue(0, 1, Number(response.temperature).toFixed(1));
-          chart.draw(data, options);
-          var dateTime = moment(response.time,'YYYY-MM-DD hh:mm:ss');
-          console.log(dateTime);
-          $("#time_div").text("Oppdatert: " + dateTime.format("HH:mm:ss DD-MM-YYYY"));
-        });
+        var query3 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1fpZdczZuxoE4Q-9cygcttD9shcrwziQ8-MM58CO4k3E/edit?usp=sharing');
+
+	query3.setQuery('select A,B,C limit 1');
+	query3.send(drawGauges);
+
       }
 
 
