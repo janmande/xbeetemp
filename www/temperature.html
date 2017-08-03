@@ -36,6 +36,13 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+	<div id="volt_hist" style="width: 90%">
+
+	</div>
+    </div>
+  </div> 
 </div>
 <div><a href="xbeetemperror.txt">Error log</a></div>
 <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
@@ -86,6 +93,21 @@
         chartv.draw(dataVolt, optionsVolt);
 
 
+	function drawVoltChart(response){
+		var optionvolt = {
+		chart: {
+			title: 'Spenningsnivå i Volt'
+		},
+		width: 900,
+		height: 500
+		};
+
+		var chart = new google.charts.Line(document.getElementById('volt_hist'));
+
+		var volthist = response.getDataTable();
+
+		chart.draw(volthist, google.charts.Line.convertOptions(optionvolt));
+	}
 
         function drawChart(response){
             var optionshist = {
@@ -108,8 +130,11 @@
         getData();
 
         var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1fpZdczZuxoE4Q-9cygcttD9shcrwziQ8-MM58CO4k3E/edit?usp=sharing');
+        var query2 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1fpZdczZuxoE4Q-9cygcttD9shcrwziQ8-MM58CO4k3E/edit?usp=sharing');
+	query.setQuery('select A,B');
         query.send(drawChart);
-
+	query2.setQuery('select A,C');
+	query2.send(drawVoltChart);
         setInterval(getData, 13000);
 
 
