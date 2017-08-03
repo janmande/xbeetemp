@@ -143,7 +143,7 @@
 	  var lastTime = table.getValue(0,0);	
 	  var lastTemp = table.getValue(0,1);
 	  var lastVolt = table.getValue(0,2);
-	  $("time_div").text("Oppdatert: " + lastTime);
+	  $("#time_div").text("Oppdatert: " + lastTime);
 	  dataVolt.setValue(0,1,Number(lastVolt).toFixed(2));
 	  data.setValue(0,1,Number(lastTemp).toFixed(2)); 
 	  chartv.draw(dataVolt,optionsVolt);
@@ -166,7 +166,7 @@
           data.setValue(0, 1, Number(temp).toFixed(1));
           chart.draw(data, options);
           var dateTime = moment(time,'YYYY-MM-DD hh:mm:ss');
-          $("#time_div").text("Oppdatert: " + dateTime.format("HH:mm:ss DD-MM-YYYY"));
+          //$("#time_div").text("Oppdatert: " + dateTime.format("HH:mm:ss DD-MM-YYYY"));
        }
 
       }
