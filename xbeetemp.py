@@ -41,15 +41,15 @@ def get_credentials():
     """
     logerror('get_credentials')
     home_dir = '/home/pi/'
-    print('home_dir: %s' % home_dir)
+    logerror('home_dir: %s' % home_dir)
     credential_dir = os.path.join(home_dir, '.credentials')
-    print('Credential dir %s' % credential_dir)
+    logerror('Credential dir %s' % credential_dir)
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(
                 credential_dir,
                 'sheets.googleapis.com-python-quickstart.json')
-    print('Credential path %s' % credential_path)
+    logerror('Credential path %s' % credential_path)
     store = Storage(credential_path)
     credentials = store.get()
     if not credentials or credentials.invalid:
@@ -71,7 +71,7 @@ def write_google_sheets(temp, volt):
     """
     logerror('write_google_sheets')
     credentials = get_credentials()
-    print('type(credentials) ' + type(credentials).__name__)
+    logerror('type(credentials) ' + type(credentials).__name__)
     if credentials is None:
         return
     http = credentials.authorize(httplib2.Http())
@@ -119,8 +119,8 @@ def write_google_sheets(temp, volt):
     body1 = {
         'requests': requests
     }
-    print('Append data to sheet: %s' % spreadsheet_id)
-    print('Adding row to start')
+    logerror('Append data to sheet: %s' % spreadsheet_id)
+    logerror('Adding row to start')
     result = service.spreadsheets().batchUpdate(
         spreadsheetId=spreadsheet_id,
         body=body1).execute()
@@ -180,8 +180,8 @@ def print_data(data):
             logerror(data)
             return
         logerror(data["samples"])
-        print(data["samples"][0])
-        print(data["samples"][0]["adc-3"])
+        logerror(data["samples"][0])
+        logerror(data["samples"][0]["adc-3"])
         analogReading=data["samples"][0]["adc-3"]
         voltageReading=data["samples"][0]["adc-7"]
         temp=(analogReading/1023.0*1.25-0.5)*100
