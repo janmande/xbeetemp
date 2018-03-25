@@ -207,12 +207,15 @@ def print_data(data):
 logerror('Service started')
 xbee = ZigBee(serial_port, callback=print_data)
 
-while True:
-    try:
-        time.sleep(0.001)
-    except KeyboardInterrupt:
-        break
-
+try:
+    while True:
+        try:
+            time.sleep(0.001)
+        except KeyboardInterrupt:
+            break
+except:
+    logerror('Main loop exception: %s' % e)
+    
 xbee.halt()
 serial_port.close()
 logerror('Service stopped')
