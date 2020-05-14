@@ -10,3 +10,7 @@ This module requires the Digi Xbee module.
 To install use the following command
 
 `$> pip install digi-xbee`
+
+For using the cloud version you all so need cloud4rpi
+
+`$> pip install cloud4rpi``
