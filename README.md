@@ -13,4 +13,4 @@ To install use the following command
 
 For using the cloud version you all so need cloud4rpi
 
-`$> pip install cloud4rpi``
+`$> pip install cloud4rpi`
